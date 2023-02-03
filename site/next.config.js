@@ -40,6 +40,10 @@ module.exports = withCommerceConfig({
   experimental: {
     esmExternals: 'loose',
   },
+
+  images: {
+    domains: ['localhost', 'ch.sitecoredemo.com'],
+  },
 })
 
 // Don't delete this console log, useful to see the commerce config in Vercel deployments
