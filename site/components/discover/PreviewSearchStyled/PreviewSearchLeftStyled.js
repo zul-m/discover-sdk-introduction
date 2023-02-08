@@ -78,7 +78,6 @@ export const PreviewSearchLeftStyled = ({ defaultProductsPerPage = 6 }) => {
   const keyphraseHandler = debounce((event) => {
     const target = event.target
     currentSearchText = target.value
-    console.log('DEBUG: ' + currentSearchText)
     setLock(false)
     onKeyphraseChange({ keyphrase: target.value })
   }, 100)
@@ -95,7 +94,6 @@ export const PreviewSearchLeftStyled = ({ defaultProductsPerPage = 6 }) => {
 
   const searchClickHandler = debounce((text) => {
     setLock(true)
-    console.log('DEBUG 2: ' + currentSearchText)
     router.push('/search?keyphrase=' + currentSearchText)
   }, 100)
   const loading = (isLoading || isFetching) && !lock
