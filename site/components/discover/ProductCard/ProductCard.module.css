@@ -96,7 +96,8 @@
 }
 
 .slim .header {
-  @apply absolute inset-0 flex items-center justify-end mr-8 z-20;
+  /* @apply absolute inset-0 flex items-center justify-end mr-8 z-20; */
+  @apply absolute inset-0 items-center justify-end mr-8 z-20;
 }
 
 .slim span {
