@@ -166,6 +166,11 @@ export const StyledInputTrigger = styled(NavMenu.InputTrigger)`
     outline: 1px solid ${theme.vars.palette.grey['400']};
   }
 `
+export const StyledInputSearch = styled(NavMenu.Link)`
+  display: block;
+  margin: -20px;
+  cursor: pointer;
+`
 
 export const SearchGroupHeading = styled.h2`
   box-sizing: border-box;

@@ -4,6 +4,7 @@ import { Presence } from '@radix-ui/react-presence'
 import { debounce } from '@sitecore-discover/common'
 import { WidgetDataType, widget } from '@sitecore-discover/react'
 import { usePreviewSearchWithLocks } from '@sitecore-discover/ui'
+import { useRouter } from 'next/router'
 
 import {
   Group,
@@ -23,6 +24,7 @@ import {
   StyledSubItem,
   StyledSubList,
   StyledTrigger,
+  StyledInputSearch,
 } from './styled'
 
 const getSelectedElement = (categories, suggestions, trendingCategories) => {
@@ -37,6 +39,8 @@ const getSelectedElement = (categories, suggestions, trendingCategories) => {
   }
   return ''
 }
+
+let currentSearchText = ''
 
 export const PreviewSearchLeftStyled = ({ defaultProductsPerPage = 6 }) => {
   const {
@@ -65,6 +69,7 @@ export const PreviewSearchLeftStyled = ({ defaultProductsPerPage = 6 }) => {
     }
   })
 
+  const router = useRouter()
   const trendingCategoryHandler = debounce((text) => {
     setLock(false)
     onTrendingCategoryChange({ trendingCategory: text })
@@ -72,6 +77,8 @@ export const PreviewSearchLeftStyled = ({ defaultProductsPerPage = 6 }) => {
 
   const keyphraseHandler = debounce((event) => {
     const target = event.target
+    currentSearchText = target.value
+    console.log('DEBUG: ' + currentSearchText)
     setLock(false)
     onKeyphraseChange({ keyphrase: target.value })
   }, 100)
@@ -85,12 +92,31 @@ export const PreviewSearchLeftStyled = ({ defaultProductsPerPage = 6 }) => {
     setLock(true)
     onSuggestionChange({ suggestion: text })
   }, 100)
+
+  const searchClickHandler = debounce((text) => {
+    setLock(true)
+    console.log('DEBUG 2: ' + currentSearchText)
+    router.push('/search?keyphrase=' + currentSearchText)
+  }, 100)
   const loading = (isLoading || isFetching) && !lock
   return (
     <StyledRoot>
       <StyledMainList>
         <StyledMainListItem>
-          <StyledInputTrigger onKeyUp={keyphraseHandler} autoComplete="on" />
+          <StyledInputTrigger onKeyUp={keyphraseHandler} autoComplete="off" />
+          <StyledInputSearch onClick={searchClickHandler}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18.022"
+              height="18"
+              viewBox="0 0 18.022 18"
+            >
+              <path
+                d="M11.282,12.974A7.147,7.147,0,1,1,14.29,7.145a7.069,7.069,0,0,1-1.316,4.137l4.7,4.7a1.168,1.168,0,0,1,0,1.661l-.016.016a1.182,1.182,0,0,1-1.661,0l-4.716-4.685Zm-4.137-.36A5.469,5.469,0,1,0,1.677,7.145a5.463,5.463,0,0,0,5.469,5.469Z"
+                style={{ fill: 'rgb(255, 255, 255)' }}
+              ></path>
+            </svg>
+          </StyledInputSearch>
           <StyledMainContent>
             {loading && (
               <LoaderContainer>
