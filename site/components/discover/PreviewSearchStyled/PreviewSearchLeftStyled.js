@@ -90,7 +90,7 @@ export const PreviewSearchLeftStyled = ({ defaultProductsPerPage = 6 }) => {
     <StyledRoot>
       <StyledMainList>
         <StyledMainListItem>
-          <StyledInputTrigger onKeyUp={keyphraseHandler} autoComplete="off" />
+          <StyledInputTrigger onKeyUp={keyphraseHandler} autoComplete="on" />
           <StyledMainContent>
             {loading && (
               <LoaderContainer>
@@ -138,11 +138,11 @@ export const PreviewSearchLeftStyled = ({ defaultProductsPerPage = 6 }) => {
                                 <StyledSubItem key={i.toString()}>
                                   {/* li */}
                                   <Link
-                                    href="#"
+                                    href={`/product/` + p.sku}
                                     onClick={(e) => {
                                       e.preventDefault()
                                       onProductClick({ sku: p.sku || '' })
-                                      // add redirection or any action
+                                      window.location.href = '/product/' + p.sku
                                     }}
                                   >
                                     <StyledProductCard.Root product={p}>
@@ -175,7 +175,7 @@ export const PreviewSearchLeftStyled = ({ defaultProductsPerPage = 6 }) => {
                             <StyledSubList>
                               {products.map((p, i) => (
                                 <StyledSubItem key={i.toString()}>
-                                  <Link href="#">
+                                  <Link href={`/product/` + p.sku}>
                                     <StyledProductCard.Root product={p}>
                                       <StyledProductCard.Image />
                                       <StyledProductCard.Name />
@@ -208,7 +208,7 @@ export const PreviewSearchLeftStyled = ({ defaultProductsPerPage = 6 }) => {
                             <StyledSubList>
                               {products.map((p, i) => (
                                 <StyledSubItem key={i.toString()}>
-                                  <Link href="#">
+                                  <Link href={`/product/` + p.sku}>
                                     <StyledProductCard.Root product={p}>
                                       <StyledProductCard.Image />
                                       <StyledProductCard.Name />
