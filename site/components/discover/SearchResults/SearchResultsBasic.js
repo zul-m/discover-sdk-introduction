@@ -101,7 +101,7 @@ export const SearchResultsBasicStyled = ({
         <StyledBreadcrumb.Navigation>
           <StyledBreadcrumb.List>
             {categories.map((c, index, { length }) => (
-              <StyledBreadcrumb.Item>
+              <StyledBreadcrumb.Item key={index}>
                 <StyledBreadcrumb.Link
                   href={c.url_path}
                   onClick={(e) => e.preventDefault()}
