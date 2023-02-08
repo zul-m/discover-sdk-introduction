@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
+import { useEffect } from 'react'
+import { trackPDPViewEvent } from '@sitecore-discover/react'
 
 export async function getStaticProps({
   params,
@@ -71,6 +73,10 @@ export default function Slug({
   product,
   relatedProducts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  useEffect(() => {
+    trackPDPViewEvent(product.id)
+  }, [product.id])
+
   const router = useRouter()
 
   return router.isFallback ? (

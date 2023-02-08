@@ -10,6 +10,11 @@ import {
   SelectedOptions,
 } from '../helpers'
 import ErrorMessage from '@components/ui/ErrorMessage'
+import { useRouter } from 'next/router'
+import {
+  ProductEventModel,
+  trackAddToCartEvent,
+} from '@sitecore-discover/react'
 
 interface ProductSidebarProps {
   product: Product
@@ -22,6 +27,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<null | Error>(null)
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
+  const { asPath } = useRouter()
 
   useEffect(() => {
     selectDefaultOptionFromProduct(product, setSelectedOptions)
@@ -49,6 +55,15 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
         })
       }
     }
+
+    const eventModel: ProductEventModel[] = [
+      {
+        sku: product.id,
+        quantity: 1,
+        price: product.price.value,
+      },
+    ]
+    trackAddToCartEvent(eventModel, asPath)
   }
 
   return (

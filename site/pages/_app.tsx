@@ -6,6 +6,7 @@ import { FC, ReactNode, useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import { Head } from '@components/common'
 import { ManagedUIContext } from '@components/ui/context'
+import { Environment, WidgetsProvider } from '@sitecore-discover/react'
 
 const Noop: FC<{ children?: ReactNode }> = ({ children }) => <>{children}</>
 
@@ -17,13 +18,18 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, [])
 
   return (
-    <>
+    <WidgetsProvider
+      env={process.env.NEXT_PUBLIC_DISCOVER_APP_ENV as Environment}
+      customerKey={process.env.NEXT_PUBLIC_DISCOVER_APP_CUSTOMER_KEY}
+      apiKey={process.env.NEXT_PUBLIC_DISCOVER_APP_API_KEY}
+      useToken
+    >
       <Head />
       <ManagedUIContext>
         <Layout pageProps={pageProps}>
           <Component {...pageProps} />
         </Layout>
       </ManagedUIContext>
-    </>
+    </WidgetsProvider>
   )
 }
