@@ -44,6 +44,10 @@ module.exports = withCommerceConfig({
   images: {
     domains: ['localhost', 'ch.sitecoredemo.com'],
   },
+
+  compiler: {
+    styledComponents: true,
+  },
 })
 
 // Don't delete this console log, useful to see the commerce config in Vercel deployments
